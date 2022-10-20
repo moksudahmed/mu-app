@@ -4,6 +4,7 @@ import Result from './Result';
 import Search from './Search';
 import { api_url } from './Api';
 import './style.css';
+import moment from 'moment';
 
 const Home = () =>{
     const [ID, setId] = useState(null);
@@ -27,10 +28,13 @@ const Home = () =>{
           })
       }, []);
     
-     const search = searchValue => {
-     
-      console.log(searchValue.StudentID);
-      fetch(`http://ip/result/${searchValue.StudentID}`)
+     const search = (searchValue, dob) => {
+      //console.log(dob['$d']);
+      const dateOfBirth = moment(dob['$d']).format('YYYY/MM/DD');
+      console.log(dateOfBirth);
+      //const res = await axios.get(`${URL}/api/public/validate_ticket?serial=${serial}&ticket_id=${id}`);
+      
+      fetch(`http://77.68.120.8:1337/result?id=${searchValue.StudentID}&dob=${dateOfBirth}`)
      //fetch(`http://ip/courseofferlist`)     
       .then((res)=>{
         return res.json();
